@@ -65,6 +65,9 @@
   должно моментально отображаться в span. То есть при печати в input'е тег span
   также должен меняться.
   */
+ document.getElementById('from').addEventListener('input', event =>{
+   document.querySelector('span').textContent = event.target.value;
+ })
 
 
   /*
@@ -73,6 +76,12 @@
   1) добавить два класса: animate__animated и animate__fadeInLeftBig
   2) поставить данному элементу стиль visibility в значение 'visible'.
    */
+   const message = document.querySelector('.message');
+   document.querySelector('.messageBtn').addEventListener('click',()=>{
+    message.classList.add('animate__animated');
+    message.classList.add('animate__fadeInLeftBig');
+    message.style.visibility ='visible';
+   });
 
 
   /*
@@ -86,7 +95,23 @@
   данному полю).
   Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
    */
+   const formEl = document.querySelector('form');
+   const formControlEls = formEl.querySelectorAll('input, select');
+   formEl.addEventListener('submit', event=>{
+    formControlEls.forEach(el=>{
+      if(el.value === ''){
+        event.preventDefault();
+        el.classList.add('error');
+      }
+    })
+   })
 
+   formEl.addEventListener('input', event => {
+    if (!event.target.classList.contains('form-control')) {
+      return;
+    }
+    event.target.value == ''? event.target.classList.add('error') : event.target.classList.remove('error');
+  });
 
 </script>
 </body>
